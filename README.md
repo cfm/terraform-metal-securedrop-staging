@@ -25,9 +25,8 @@ VNC password `tails`.
 
 * You can use `journalctl [-f]` to check on the progress of cloud-init.
 
-* Each instance of this module provisions two
-  [`t1.small.x86`][t1.small.x86] servers at $0.07/hour each.  A running
-  instance therefore costs:
+* Each instance of this module provisions a [`t1.small.x86`][t1.small.x86]
+  server at $0.07/hour.  A running instance therefore costs:
 
 | Period | Cost |
 | --- | --- |
