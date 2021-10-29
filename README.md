@@ -21,6 +21,19 @@ root@sd-staging:~# virsh vncdisplay tails
 Your Tails domain will be available via VNC at `localhost:5900` with the
 VNC password `tails`.
 
-## Troubleshooting
+## Things to know
 
-Use `journalctl [-f]` to check on the progress of cloud-init.
+* You can use `journalctl [-f]` to check on the progress of cloud-init.
+
+* Each instance of this module provisions two
+  [`t1.small.x86`][t1.small.x86] servers at $0.07/hour each.  A running
+  instance therefore costs:
+
+| Period | Cost |
+| --- | --- |
+| Hourly | $0.07 |
+| Daily | $1.68 |
+| Monthly | $50.40 |
+
+
+[t1.small.x86]: https://metal.equinix.com/developers/docs/servers/server-specs/#t1smallx86
