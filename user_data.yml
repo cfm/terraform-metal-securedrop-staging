@@ -3,6 +3,11 @@
 runcmd:
   - export HOME=/root
   - export WORKDIR="${HOME}/securedrop"
+  - export TAILS_IMG=/tails.img
+  - export TAILS_IMG_SIG="${TAILS_IMG}.sig"
+  - export TAILS_IMG_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.23/tails-amd64-4.23.img
+  - export TAILS_KEY_FPR="A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC D84F"
+
   - sudo apt-get update
 
   # --- SECUREDROP PREREQUISITES ---
@@ -54,3 +59,24 @@ runcmd:
   - apt-get install -y rustc
   - python3 -m pip install --ignore-installed --no-deps --require-hashes -r "${WORKDIR}/securedrop/requirements/python3/develop-requirements.txt"
 
+  # The "libvirt-staging-focal" scenario will create the "libvirt-vagrant"
+  # network to which we'll attach our Tails domain.
+  - cd "$WORKDIR" && molecule create -s libvirt-staging-focal
+
+  # --- TAILS ---
+  - curl -o "$TAILS_IMG" "$TAILS_IMG_URL"
+  - curl -o "$TAILS_IMG_SIG" "${TAILS_IMG_URL}.sig"
+  - gpg --recv-keys "$TAILS_KEY_FPR"
+  - gpg --verify "$TAILS_IMG_SIG" "$TAILS_IMG"
+  - truncate -s 8096M "$TAILS_IMG"
+  - virt-install
+    --boot hd
+    --disk "${TAILS_IMG},bus=usb,removable=on"
+    --graphics "vnc,password=tails"
+    --import
+    --memory 2048
+    --name tails
+    --network network=vagrant-libvirt
+    --noautoconsole
+    --os-type debian9
+    --vcpus 2
