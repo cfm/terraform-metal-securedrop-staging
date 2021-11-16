@@ -12,6 +12,10 @@ variable "auth_token" {
 
 variable "metro" {}
 
+variable "plan" {
+  default = "c3.small.x86"
+}
+
 variable "project" {}
 
 provider "metal" {
@@ -24,7 +28,7 @@ data "metal_project" "project" {
 
 resource "metal_device" "sd-staging" {
   hostname         = "sd-staging"
-  plan             = "t1.small.x86"
+  plan             = var.plan
   metro            = var.metro
   operating_system = "debian_10"
   billing_cycle    = "hourly"
