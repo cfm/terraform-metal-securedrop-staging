@@ -1,8 +1,18 @@
 # terraform-metal-securedrop-staging
 
 Terraform module for standing up a SecureDrop staging environment at
-Equinix Metal (fka Packet).  After you've run `terraform apply` and (~15
-minutes later) cloud-init has completed, you'll have (e.g.):
+Equinix Metal (fka Packet).
+
+Define a `terraform.tfvars` like:
+
+```hcl
+auth_token = "your Equinix Metal token here"
+metro      = "two-letter metro code here"  # https://metal.equinix.com/developers/api/metros/
+project    = "name of your configured Equinix Metal project here"
+```
+
+After you've run `terraform apply` and (~15 minutes later) cloud-init
+has completed, you'll have (e.g.):
 
 ```sh-session
 $ ssh -L 5900:localhost:5902 root@139.178.89.89
