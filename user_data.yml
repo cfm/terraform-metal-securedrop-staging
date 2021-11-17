@@ -5,7 +5,7 @@ runcmd:
   - export WORKDIR="${HOME}/securedrop"
   - export TAILS_IMG=/tails.img
   - export TAILS_IMG_SIG="${TAILS_IMG}.sig"
-  - export TAILS_IMG_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.23/tails-amd64-4.23.img
+  - export TAILS_IMG_URL=https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.24/tails-amd64-4.24.img
   - export TAILS_KEY_FPR="A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC D84F"
 
   - sudo apt-get update
