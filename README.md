@@ -3,15 +3,16 @@
 Terraform module for standing up a SecureDrop staging environment at
 Equinix Metal (fka Packet).
 
-**Warning: Using this and keeping it running will incur costs (see below).**
+**WARNING: Using this and keeping it running will incur costs (see below).**
 
-Prerequisites:
+## Prerequisites
+
 1. [Install the latest stable version of Terraform](https://www.terraform.io/downloads.html)
 2. [Create an Equinix Metal account](https://metal.equinix.com/)
 3. Create a project (you will need its name)
 4. Create an account-level personal API key (you will need its token)
 
-Usage:
+## Usage
 
 Define a `terraform.tfvars` like:
 
