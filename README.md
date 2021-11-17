@@ -30,6 +30,20 @@ server's IP address in the output. After `cloud-init` has completed, you
 can start a session like so:
 
 ```sh-session
+$ terraform init
+[...]
+$ terraform apply
+[...]
+metal_device.sd-staging: Still creating... [2m0s elapsed]
+metal_device.sd-staging: Still creating... [2m10s elapsed]
+metal_device.sd-staging: Still creating... [2m20s elapsed]
+metal_device.sd-staging: Creation complete after 2m22s [id=04baac1e-f733-4a97-8d5e-470aa6d6d483]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+ip_address = "<your IP>"
 $ ssh -L 5900:localhost:5902 root@<your IP>
 [...]
 root@sd-staging:~# virsh list
