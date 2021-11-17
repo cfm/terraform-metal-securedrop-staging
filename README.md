@@ -3,11 +3,21 @@
 Terraform module for standing up a SecureDrop staging environment at
 Equinix Metal (fka Packet).
 
+**Warning: Using this and keeping it running will incur costs (see below).**
+
+Prerequisites:
+1. [Install the latest stable version of Terraform](https://www.terraform.io/downloads.html)
+2. [Create an Equinix Metal account](https://metal.equinix.com/)
+3. Create a project (you will need its name)
+4. Create an account-level personal API key (you will need its token)
+
+Usage:
+
 Define a `terraform.tfvars` like:
 
 ```hcl
 # REQUIRED:
-auth_token = "your Equinix Metal token here"
+auth_token = "your Equinix Metal API token here"
 metro      = "two-letter metro code here"  # https://metal.equinix.com/developers/api/metros/
 project    = "name of your configured Equinix Metal project here"
 
@@ -15,11 +25,12 @@ project    = "name of your configured Equinix Metal project here"
 plan = "if you want something other than c3.small.x86"  # https://metal.equinix.com/developers/api/plans/
 ```
 
-After you've run `terraform init && terraform apply` and (~5 minutes
-later) cloud-init has completed, you'll have (e.g.):
+After you've run `terraform init && terraform apply`, you should see your
+server's IP address in the output. After `cloud-init` has completed, you
+can start a session like so:
 
 ```sh-session
-$ ssh -L 5900:localhost:5902 root@139.178.89.89
+$ ssh -L 5900:localhost:5902 root@<your IP>
 [...]
 root@sd-staging:~# virsh list
  Id   Name                                State
@@ -32,8 +43,9 @@ root@sd-staging:~# virsh vncdisplay tails
 127.0.0.1:2
 ```
 
-Your Tails domain will be available via VNC at `localhost:5900` with the
-VNC password `tails`.
+If you used the SSH invocation above, your Tails domain will be available via
+VNC at `localhost:5900` with the VNC password `tails`. You can use a VNC client
+like `vinagre` (connect using the VNC protocol).
 
 ## Things to know
 
