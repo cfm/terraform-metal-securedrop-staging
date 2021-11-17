@@ -35,6 +35,8 @@ resource "metal_device" "sd-staging" {
   project_id       = data.metal_project.project.id
   user_data        = file("${path.module}/user_data.yml")
 
+}
+
 output "ip_address" {
   value = metal_device.sd-staging.access_public_ipv4
 }
