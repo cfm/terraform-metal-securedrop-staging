@@ -9,6 +9,7 @@ runcmd:
   - export TAILS_KEY_FPR="A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC D84F"
 
   - sudo apt-get update
+  - sudo apt-get install locales-all
 
   # --- SECUREDROP PREREQUISITES ---
   #
