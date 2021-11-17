@@ -61,11 +61,12 @@ git clone https://github.com/freedomofpress/securedrop.git "$WORKDIR"
 
 apt-get install -y enchant
 apt-get install -y rustc
-python3 -m pip install --ignore-installed --no-deps --require-hashes -r "${WORKDIR}/securedrop/requirements/python3/develop-requirements.txt"
 
-# The "libvirt-staging-focal" scenario will create the "libvirt-vagrant"
-# network to which we'll attach our Tails domain.
-cd "$WORKDIR" && molecule create -s libvirt-staging-focal
+cd "$WORKDIR" && make build-debs
+
+# Under the hood, the "libvirt-staging-focal" Molecule scenario will create
+# the "libvirt-vagrant" network to which we'll attach our Tails domain.
+cd "$WORKDIR" && make staging
 
 # --- TAILS ---
 curl -o "$TAILS_IMG" "$TAILS_IMG_URL"

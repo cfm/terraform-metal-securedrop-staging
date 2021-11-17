@@ -62,6 +62,12 @@ If you used the SSH invocation above, your Tails domain will be available via
 VNC at `localhost:5900` with the VNC password `tails`. You can use a VNC client
 like `vinagre` (connect using the VNC protocol).
 
+The `app-staging` applications (Source and Journalist Interfaces) will
+be reachable via the same [instructions][sd-staging] used to connect to
+any other SecureDrop staging environment.
+
+[sd-staging]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#staging
+
 ## Things to know
 
 * You can use `journalctl [-f]` to check on the progress of cloud-init.
