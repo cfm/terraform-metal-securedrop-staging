@@ -68,6 +68,42 @@ any other SecureDrop staging environment.
 
 [sd-staging]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#staging
 
+### Expert usage: SecureDrop production VMs
+
+You can also use this setup as the basis for a ["production VM"][sd-prod]
+installation of SecureDrop:
+
+> a production installation with all of the system hardening active, but
+> virtualized, rather than running on hardware.
+
+To do so, pick up the instructions from the section ["Install from an
+Admin Workstation VM"][install-from-admin-workstation-vm].  First,
+provision the production VMs alongside the existing staging VMs:
+
+```sh-session
+$ ssh -L 5900:localhost:5902 root@<your IP>
+[...]
+root@sd-staging:~# molecule create -s libvirt-prod-focal
+```
+
+Then follow the rest of the instructions on the Tails domain over VNC
+as described above.  For `securedrop-admin sdconfig`, you'll need to be
+ready with the following values:
+
+```sh-session
+$ ./securedrop-admin sdconfig
+Username for SSH access to the servers: vagrant
+[...]
+Local IPv4 address for the Application Server: # from "virsh domifaddr libvirt-prod-focal_app-prod"
+Local IPv4 address for the Monitor Server: # from "virsh domifaddr libvirt-prod-focal_mon-prod"
+Hostname for Application Server: app-prod
+Hostname for Monitor Server: mon-prod
+[...]
+```
+
+[install-from-admin-workstation-vm]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#install-from-an-admin-workstation-vm
+[sd-prod]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#production
+
 ## Things to know
 
 * You can use `journalctl [-f]` to check on the progress of cloud-init.
