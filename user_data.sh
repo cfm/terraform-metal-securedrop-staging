@@ -9,9 +9,12 @@ export HOME=/root
 export WORKDIR="${HOME}/securedrop"
 
 # Tails parameters:
+export TAILS_TAGS_ENDPOINT="https://gitlab.tails.boum.org/api/v4/projects/tails%2Ftails/repository/tags"
+export TAILS_LATEST_TAG=$(curl $TAILS_TAGS_ENDPOINT | jq -r ".[0].name")
+
 export TAILS_IMG=/tails.img
 export TAILS_IMG_SIG="${TAILS_IMG}.sig"
-export TAILS_IMG_URL="https://mirrors.edge.kernel.org/tails/stable/tails-amd64-4.24/tails-amd64-4.24.img"
+export TAILS_IMG_URL="https://mirrors.edge.kernel.org/tails/stable/tails-amd64-${TAILS_LATEST_TAG}/tails-amd64-${TAILS_LATEST_TAG}.img"
 export TAILS_KEY_FPR="A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC D84F"
 
 # --- SECUREDROP PREREQUISITES ---
