@@ -83,7 +83,9 @@ provision the production VMs alongside the existing staging VMs:
 ```sh-session
 $ ssh -L 5900:localhost:5902 root@<your IP>
 [...]
-root@sd-staging:~# molecule create -s libvirt-prod-focal
+root@sd-staging:~# cd securedrop
+root@sd-staging:~# source .venv/bin/activate
+root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
 ```
 
 Then follow the rest of the instructions on the Tails domain over VNC
@@ -91,7 +93,7 @@ as described above.  For `securedrop-admin sdconfig`, you'll need to be
 ready with the following values:
 
 ```sh-session
-$ ./securedrop-admin sdconfig
+amnesia@amnesia:~$ ./securedrop-admin sdconfig
 Username for SSH access to the servers: vagrant
 [...]
 Local IPv4 address for the Application Server: # from "virsh domifaddr libvirt-prod-focal_app-prod"
