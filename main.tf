@@ -33,7 +33,7 @@ resource "metal_device" "sd-staging" {
   operating_system = "debian_10"
   billing_cycle    = "hourly"
   project_id       = data.metal_project.project.id
-  user_data        = file("${path.module}/user_data.yml")
+  user_data        = file("${path.module}/user_data.sh")
 
 }
 
