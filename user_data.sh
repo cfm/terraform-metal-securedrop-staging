@@ -8,6 +8,7 @@ sudo apt-get install --yes \
 
 # General parameters:
 export HOME=/root
+export KEYSERVER=keyserver.ubuntu.com  # https://superuser.com/a/1485255
 export WORKDIR="${HOME}/securedrop"
 
 # Tails parameters:
@@ -76,7 +77,7 @@ cd "$WORKDIR" && make staging
 # --- TAILS ---
 curl -o "$TAILS_IMG" "$TAILS_IMG_URL"
 curl -o "$TAILS_IMG_SIG" "${TAILS_IMG_URL}.sig"
-gpg --recv-keys "$TAILS_KEY_FPR"
+gpg --keyserver "$KEYSERVER" --recv-keys "$TAILS_KEY_FPR"
 gpg --verify "$TAILS_IMG_SIG" "$TAILS_IMG"
 truncate -s 8096M "$TAILS_IMG"
 virt-install \
