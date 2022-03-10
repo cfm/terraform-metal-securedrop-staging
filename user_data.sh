@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+set -eux -o pipefail
 
 # Configuration prerequisites:
 sudo apt-get update
