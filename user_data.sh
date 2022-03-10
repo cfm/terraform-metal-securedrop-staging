@@ -2,7 +2,9 @@
 
 # Configuration prerequisites:
 sudo apt-get update
-sudo apt-get install locales-all
+sudo apt-get install --yes \
+	jq \
+	locales-all
 
 # General parameters:
 export HOME=/root
