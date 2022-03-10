@@ -89,8 +89,16 @@ root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
 ```
 
 Then follow the rest of the instructions on the Tails domain over VNC
-as described above.  For `securedrop-admin sdconfig`, you'll need to be
-ready with the following values:
+as described above.
+
+**NOTE.**  You *must* configure Tails persistence before `securedrop-admin
+setup`, even if you don't actually require your `securedrop` clone to persist
+across reboots of the Tails domain (for example, during one-off testing).
+Without persistence configured, the `setup` action will bog down the Tails RAM
+disk (with the recommended 2 GB of RAM), and the domain is likely to lock up.
+
+For `securedrop-admin sdconfig`, you'll need to be ready with the following
+values:
 
 ```sh-session
 amnesia@amnesia:~$ ./securedrop-admin sdconfig
