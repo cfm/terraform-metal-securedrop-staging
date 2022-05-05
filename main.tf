@@ -30,7 +30,7 @@ resource "metal_device" "sd-staging" {
   hostname         = "sd-staging"
   plan             = var.plan
   metro            = var.metro
-  operating_system = "debian_10"
+  operating_system = "debian_11"
   billing_cycle    = "hourly"
   project_id       = data.metal_project.project.id
   user_data        = file("${path.module}/user_data.sh")

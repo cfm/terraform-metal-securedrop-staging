@@ -66,7 +66,7 @@ vagrant mutate bento/ubuntu-20.04 libvirt
 # -- SECUREDROP WORKSPACE ---
 git clone https://github.com/freedomofpress/securedrop.git "$WORKDIR"
 
-apt-get install -y enchant
+apt-get install -y enchant-2
 apt-get install -y rustc
 
 cd "$WORKDIR" && make build-debs
@@ -90,5 +90,5 @@ virt-install \
     --name tails \
     --network network=vagrant-libvirt \
     --noautoconsole \
-    --os-type debian9 \
+    --os-type debian10 \
     --vcpus 2
