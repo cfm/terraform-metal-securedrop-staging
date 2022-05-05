@@ -80,7 +80,7 @@ curl -o "$TAILS_IMG" "$TAILS_IMG_URL"
 curl -o "$TAILS_IMG_SIG" "${TAILS_IMG_URL}.sig"
 gpg --keyserver "$KEYSERVER" --recv-keys "$TAILS_KEY_FPR"
 gpg --verify "$TAILS_IMG_SIG" "$TAILS_IMG"
-truncate -s 8096M "$TAILS_IMG"
+truncate --size ">16G" "$TAILS_IMG"
 virt-install \
     --boot hd \
     --disk "${TAILS_IMG},bus=usb,removable=on" \
