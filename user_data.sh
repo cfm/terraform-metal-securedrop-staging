@@ -86,7 +86,7 @@ virt-install \
     --disk "${TAILS_IMG},bus=usb,removable=on" \
     --graphics "vnc,password=tails" \
     --import \
-    --memory 2048 \
+    --memory 4096 \
     --name tails \
     --network network=vagrant-libvirt \
     --noautoconsole \
