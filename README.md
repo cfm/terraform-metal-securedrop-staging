@@ -88,8 +88,14 @@ root@sd-staging:~# source .venv/bin/activate
 root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
 ```
 
-Then follow the rest of the instructions on the Tails domain over VNC
-as described above.
+Then follow the rest of the instructions on the Tails domain over VNC as
+described above. You'll probably find it convenient to fetch [Vagrant's
+base-box private key][vagrant-keypair] for SSH from the Tails domain, e.g.:
+
+```sh-session
+amnesia@amnesia:~$ wget -O .ssh/id_rsa https://raw.githubusercontent.com/hashicorp/vagrant/main/keys/vagrant
+amnesia@amnesia:~$ chmod 600 .ssh/id_rsa
+```
 
 **NOTE.**  You *must* configure Tails persistence before `securedrop-admin
 setup`, even if you don't actually require your `securedrop` clone to persist
@@ -133,3 +139,4 @@ Hostname for Monitor Server: mon-prod
 [equinix-feedback-thread]: https://feedback.equinixmetal.com/servers-and-configs/p/mini-servers-to-give-the-sweet-sweet-taste-of-equinix-metal
 [c3.small.x86]: https://metal.equinix.com/developers/docs/servers/server-specs/#c3smallx86
 [t1.small.x86]: https://metal.equinix.com/developers/docs/servers/server-specs/#t1smallx86
+[vagrant-keypair]: https://github.com/hashicorp/vagrant/tree/main/keys
