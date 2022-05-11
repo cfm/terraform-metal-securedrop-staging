@@ -77,7 +77,7 @@ installation of SecureDrop:
 > virtualized, rather than running on hardware.
 
 To do so, pick up the instructions from the section ["Install from an
-Admin Workstation VM"][install-from-admin-workstation-vm].  First,
+Admin Workstation VM"][install-from-admin-workstation-vm]. First,
 provision the production VMs alongside the existing staging VMs:
 
 ```sh-session
@@ -97,7 +97,7 @@ amnesia@amnesia:~$ wget -O .ssh/id_rsa https://raw.githubusercontent.com/hashico
 amnesia@amnesia:~$ chmod 600 .ssh/id_rsa
 ```
 
-**NOTE.**  You *must* configure Tails persistence before `securedrop-admin
+**NOTE.** You _must_ configure Tails persistence before `securedrop-admin
 setup`, even if you don't actually require your `securedrop` clone to persist
 across reboots of the Tails domain (for example, during one-off testing).
 Without persistence configured, the `setup` action will bog down the Tails RAM
@@ -122,19 +122,18 @@ Hostname for Monitor Server: mon-prod
 
 ## Things to know
 
-* You can use `journalctl [-f]` to check on the progress of cloud-init.
+- You can use `journalctl [-f]` to check on the progress of cloud-init.
 
-* By default, each instance of this module provisions a
+- By default, each instance of this module provisions a
   ~~[`t1.small.x86`][t1.small.x86]~~ [c3.small.x86][c3.small.x86]
   ([alas][equinix-feedback-thread]) server at ~~$0.07~~ $0.50 per hour.
   A running instance therefore costs:
 
-| Period | Cost |
-| --- | --- |
-| Hourly | ~~$0.07~~ $0.50 |
-| Daily | ~~$1.68~~ $12.00 |
+| Period  | Cost               |
+| ------- | ------------------ |
+| Hourly  | ~~$0.07~~ $0.50    |
+| Daily   | ~~$1.68~~ $12.00   |
 | Monthly | ~~$50.40~~ $360.00 |
-
 
 [equinix-feedback-thread]: https://feedback.equinixmetal.com/servers-and-configs/p/mini-servers-to-give-the-sweet-sweet-taste-of-equinix-metal
 [c3.small.x86]: https://metal.equinix.com/developers/docs/servers/server-specs/#c3smallx86
