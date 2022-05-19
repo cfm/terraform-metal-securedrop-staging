@@ -120,7 +120,28 @@ Hostname for Monitor Server: mon-prod
 [install-from-admin-workstation-vm]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#install-from-an-admin-workstation-vm
 [sd-prod]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#production
 
-## Things to know
+## Resetting a Molecule scenario
+
+To reset the staging or production VM scenarios, you'll need to do a bit of
+cleanup, e.g.:
+
+```sh-session
+root@sd-staging:~# cd securedrop
+root@sd-staging:~/securedrop# source .venv/bin/activate
+(.venv) root@sd-staging:~/securedrop# molecule destroy -s libvirt-prod-focal
+(.venv) root@sd-staging:~/securedrop# virsh undefine libvirt-prod-focal_app_prod
+(.venv) root@sd-staging:~/securedrop# virsh undefine libvirt-prod-focal_mon_prod
+(.venv) root@sd-staging:~/securedrop# virsh vol-delete --pool default libvirt-prod-focal_app-prod
+(.venv) root@sd-staging:~/securedrop# virsh vol-delete --pool default libvirt-prod-focal_mon-prod
+```
+
+Then you can redo:
+
+```sh-session
+(.venv) root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
+```
+
+## Other things to know
 
 - You can use `journalctl [-f]` to check on the progress of cloud-init.
 
