@@ -120,7 +120,7 @@ Hostname for Monitor Server: mon-prod
 [install-from-admin-workstation-vm]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#install-from-an-admin-workstation-vm
 [sd-prod]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#production
 
-## Resetting a Molecule scenario
+### Resetting a Molecule scenario
 
 To reset the staging or production VM scenarios, you'll need to do a bit of
 cleanup, e.g.:
