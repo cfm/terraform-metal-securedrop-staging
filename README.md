@@ -85,7 +85,7 @@ $ ssh -L 5900:localhost:5902 root@<your IP>
 [...]
 root@sd-staging:~# cd securedrop
 root@sd-staging:~# source .venv/bin/activate
-root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
+(.venv) root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
 ```
 
 Then follow the rest of the instructions on the Tails domain over VNC as
