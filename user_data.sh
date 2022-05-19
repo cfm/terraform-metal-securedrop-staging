@@ -66,7 +66,7 @@ vagrant mutate bento/ubuntu-20.04 libvirt
 # -- SECUREDROP WORKSPACE ---
 git clone https://github.com/freedomofpress/securedrop.git "$WORKDIR"
 
-apt-get install -y enchant
+apt-get install -y enchant-2
 apt-get install -y rustc
 
 cd "$WORKDIR" && make build-debs
@@ -80,15 +80,15 @@ curl -o "$TAILS_IMG" "$TAILS_IMG_URL"
 curl -o "$TAILS_IMG_SIG" "${TAILS_IMG_URL}.sig"
 gpg --keyserver "$KEYSERVER" --recv-keys "$TAILS_KEY_FPR"
 gpg --verify "$TAILS_IMG_SIG" "$TAILS_IMG"
-truncate -s 8096M "$TAILS_IMG"
+truncate --size ">16G" "$TAILS_IMG"
 virt-install \
     --boot hd \
     --disk "${TAILS_IMG},bus=usb,removable=on" \
     --graphics "vnc,password=tails" \
     --import \
-    --memory 2048 \
+    --memory 4096 \
     --name tails \
     --network network=vagrant-libvirt \
     --noautoconsole \
-    --os-type debian9 \
+    --os-type debian10 \
     --vcpus 2

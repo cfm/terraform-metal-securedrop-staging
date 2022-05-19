@@ -77,7 +77,7 @@ installation of SecureDrop:
 > virtualized, rather than running on hardware.
 
 To do so, pick up the instructions from the section ["Install from an
-Admin Workstation VM"][install-from-admin-workstation-vm].  First,
+Admin Workstation VM"][install-from-admin-workstation-vm]. First,
 provision the production VMs alongside the existing staging VMs:
 
 ```sh-session
@@ -85,13 +85,19 @@ $ ssh -L 5900:localhost:5902 root@<your IP>
 [...]
 root@sd-staging:~# cd securedrop
 root@sd-staging:~# source .venv/bin/activate
-root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
+(.venv) root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
 ```
 
-Then follow the rest of the instructions on the Tails domain over VNC
-as described above.
+Then follow the rest of the instructions on the Tails domain over VNC as
+described above. You'll probably find it convenient to fetch [Vagrant's
+base-box private key][vagrant-keypair] for SSH from the Tails domain, e.g.:
 
-**NOTE.**  You *must* configure Tails persistence before `securedrop-admin
+```sh-session
+amnesia@amnesia:~$ wget -O .ssh/id_rsa https://raw.githubusercontent.com/hashicorp/vagrant/main/keys/vagrant
+amnesia@amnesia:~$ chmod 600 .ssh/id_rsa
+```
+
+**NOTE.** You _must_ configure Tails persistence before `securedrop-admin
 setup`, even if you don't actually require your `securedrop` clone to persist
 across reboots of the Tails domain (for example, during one-off testing).
 Without persistence configured, the `setup` action will bog down the Tails RAM
@@ -114,22 +120,43 @@ Hostname for Monitor Server: mon-prod
 [install-from-admin-workstation-vm]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#install-from-an-admin-workstation-vm
 [sd-prod]: https://docs.securedrop.org/en/stable/development/virtual_environments.html#production
 
-## Things to know
+## Resetting a Molecule scenario
 
-* You can use `journalctl [-f]` to check on the progress of cloud-init.
+To reset the staging or production VM scenarios, you'll need to do a bit of
+cleanup, e.g.:
 
-* By default, each instance of this module provisions a
+```sh-session
+root@sd-staging:~# cd securedrop
+root@sd-staging:~/securedrop# source .venv/bin/activate
+(.venv) root@sd-staging:~/securedrop# molecule destroy -s libvirt-prod-focal
+(.venv) root@sd-staging:~/securedrop# virsh undefine libvirt-prod-focal_app_prod
+(.venv) root@sd-staging:~/securedrop# virsh undefine libvirt-prod-focal_mon_prod
+(.venv) root@sd-staging:~/securedrop# virsh vol-delete --pool default libvirt-prod-focal_app-prod
+(.venv) root@sd-staging:~/securedrop# virsh vol-delete --pool default libvirt-prod-focal_mon-prod
+```
+
+Then you can redo:
+
+```sh-session
+(.venv) root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
+```
+
+## Other things to know
+
+- You can use `journalctl [-f]` to check on the progress of cloud-init.
+
+- By default, each instance of this module provisions a
   ~~[`t1.small.x86`][t1.small.x86]~~ [c3.small.x86][c3.small.x86]
   ([alas][equinix-feedback-thread]) server at ~~$0.07~~ $0.50 per hour.
   A running instance therefore costs:
 
-| Period | Cost |
-| --- | --- |
-| Hourly | ~~$0.07~~ $0.50 |
-| Daily | ~~$1.68~~ $12.00 |
+| Period  | Cost               |
+| ------- | ------------------ |
+| Hourly  | ~~$0.07~~ $0.50    |
+| Daily   | ~~$1.68~~ $12.00   |
 | Monthly | ~~$50.40~~ $360.00 |
-
 
 [equinix-feedback-thread]: https://feedback.equinixmetal.com/servers-and-configs/p/mini-servers-to-give-the-sweet-sweet-taste-of-equinix-metal
 [c3.small.x86]: https://metal.equinix.com/developers/docs/servers/server-specs/#c3smallx86
 [t1.small.x86]: https://metal.equinix.com/developers/docs/servers/server-specs/#t1smallx86
+[vagrant-keypair]: https://github.com/hashicorp/vagrant/tree/main/keys
