@@ -4,8 +4,8 @@ set -eux -o pipefail
 # Configuration prerequisites:
 sudo apt-get update
 sudo apt-get install --yes \
-	jq \
-	locales-all
+    jq \
+    locales-all
 
 # General parameters:
 export HOME=/root
