@@ -61,7 +61,8 @@ sudo modprobe kvm_intel
 echo 'export VAGRANT_DEFAULT_PROVIDER=libvirt' >> ~/.bashrc
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 
-vagrant box add --provider virtualbox bento/ubuntu-20.04
+vagrant box add --provider virtualbox bento/ubuntu-20.04 \
+       --box-version 202112.19.0  # freedomofpress/securedrop#6497
 vagrant mutate bento/ubuntu-20.04 libvirt
 
 # -- SECUREDROP WORKSPACE ---
