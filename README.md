@@ -129,10 +129,10 @@ cleanup, e.g.:
 root@sd-staging:~# cd securedrop
 root@sd-staging:~/securedrop# source .venv/bin/activate
 (.venv) root@sd-staging:~/securedrop# molecule destroy -s libvirt-prod-focal
-(.venv) root@sd-staging:~/securedrop# virsh undefine libvirt-prod-focal_app_prod
-(.venv) root@sd-staging:~/securedrop# virsh undefine libvirt-prod-focal_mon_prod
-(.venv) root@sd-staging:~/securedrop# virsh vol-delete --pool default libvirt-prod-focal_app-prod
-(.venv) root@sd-staging:~/securedrop# virsh vol-delete --pool default libvirt-prod-focal_mon-prod
+(.venv) root@sd-staging:~/securedrop# virsh undefine libvirt-prod-focal_app-prod
+(.venv) root@sd-staging:~/securedrop# virsh undefine libvirt-prod-focal_mon-prod
+(.venv) root@sd-staging:~/securedrop# virsh vol-delete --pool default libvirt-prod-focal_app-prod.img
+(.venv) root@sd-staging:~/securedrop# virsh vol-delete --pool default libvirt-prod-focal_mon-prod.img
 ```
 
 Then you can redo:

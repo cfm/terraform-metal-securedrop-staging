@@ -4,8 +4,8 @@ set -eux -o pipefail
 # Configuration prerequisites:
 sudo apt-get update
 sudo apt-get install --yes \
-	jq \
-	locales-all
+    jq \
+    locales-all
 
 # General parameters:
 export HOME=/root
@@ -49,7 +49,8 @@ python3 -m pip install --upgrade pip virtualenv
 sudo apt-get install -y vagrant libvirt-daemon-system qemu-kvm virt-manager
 sudo apt-get install -y ansible rsync
 apt-get remove -y vagrant-libvirt  # so that we can then...
-vagrant plugin install vagrant-libvirt
+vagrant plugin install vagrant-libvirt \
+    --plugin-version 0.7.0  # vagrant-libvirt/vagrant-libvirt#1519
 vagrant plugin install vagrant-mutate
 
 sudo rmmod kvm_intel
@@ -60,7 +61,8 @@ sudo modprobe kvm_intel
 echo 'export VAGRANT_DEFAULT_PROVIDER=libvirt' >> ~/.bashrc
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 
-vagrant box add --provider virtualbox bento/ubuntu-20.04
+vagrant box add --provider virtualbox bento/ubuntu-20.04 \
+       --box-version 202112.19.0  # freedomofpress/securedrop#6497
 vagrant mutate bento/ubuntu-20.04 libvirt
 
 # -- SECUREDROP WORKSPACE ---
