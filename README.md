@@ -54,13 +54,13 @@ root@sd-staging:~# virsh list
  2    libvirt-staging-focal_mon-staging   running
  4    tails                               running
 
-root@sd-staging:~# virsh vncdisplay tails
+root@sd-staging:~# virsh domdisplay tails
 127.0.0.1:2
 ```
 
 If you used the SSH invocation above, your Tails domain will be available via
-VNC at `localhost:5900` with the VNC password `tails`. You can use a VNC client
-like `vinagre` (connect using the VNC protocol).
+Spice at `localhost:5900` with the Spice password `tails`. You can use a Spice
+client like `vinagre` (connect using the SPICE protocol).
 
 The `app-staging` applications (Source and Journalist Interfaces) will
 be reachable via the same [instructions][sd-staging] used to connect to
@@ -88,7 +88,7 @@ root@sd-staging:~# source .venv/bin/activate
 (.venv) root@sd-staging:~/securedrop# molecule create -s libvirt-prod-focal
 ```
 
-Then follow the rest of the instructions on the Tails domain over VNC as
+Then follow the rest of the instructions on the Tails domain over Spice
 described above. You'll probably find it convenient to fetch [Vagrant's
 base-box private key][vagrant-keypair] for SSH from the Tails domain, e.g.:
 

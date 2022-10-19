@@ -86,7 +86,7 @@ truncate --size ">16G" "$TAILS_IMG"
 virt-install \
     --boot hd \
     --disk "${TAILS_IMG},bus=usb,removable=on" \
-    --graphics "vnc,password=tails" \
+    --graphics "spice,password=tails" \
     --import \
     --memory 4096 \
     --name tails \
