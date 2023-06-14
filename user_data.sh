@@ -70,7 +70,7 @@ git clone https://github.com/freedomofpress/securedrop.git "$WORKDIR"
 apt-get install -y enchant-2
 apt-get install -y rustc
 
-cd "$WORKDIR" && make build-debs
+cd "$WORKDIR" && make build-debs-notest && make build-debs-ossec-notest
 
 # Under the hood, the "libvirt-staging-focal" Molecule scenario will create
 # the "libvirt-vagrant" network to which we'll attach our Tails domain.
