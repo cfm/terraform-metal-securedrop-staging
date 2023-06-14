@@ -9,7 +9,7 @@ sudo apt-get install --yes \
 
 # General parameters:
 export HOME=/root
-export KEYSERVER=keyserver.ubuntu.com  # https://superuser.com/a/1485255
+export KEYSERVER=pgp.mit.edu  # https://superuser.com/a/1485255
 export WORKDIR="${HOME}/securedrop"
 
 # Tails parameters:
