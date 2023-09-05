@@ -9,7 +9,6 @@ sudo apt-get install --yes \
 
 # General parameters:
 export HOME=/root
-export KEYSERVER=pgp.mit.edu  # https://superuser.com/a/1485255
 export WORKDIR="${HOME}/securedrop"
 
 # Tails parameters:
@@ -19,7 +18,7 @@ export TAILS_LATEST_TAG=$(curl $TAILS_TAGS_ENDPOINT | jq -r ".[0].name")
 export TAILS_IMG=/tails.img
 export TAILS_IMG_SIG="${TAILS_IMG}.sig"
 export TAILS_IMG_URL="https://mirrors.edge.kernel.org/tails/stable/tails-amd64-${TAILS_LATEST_TAG}/tails-amd64-${TAILS_LATEST_TAG}.img"
-export TAILS_KEY_FPR="A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC D84F"
+export TAILS_KEY_URL="https://tails.net/tails-signing.key"
 
 # --- SECUREDROP PREREQUISITES ---
 #
@@ -79,7 +78,7 @@ cd "$WORKDIR" && make staging
 # --- TAILS ---
 curl -o "$TAILS_IMG" "$TAILS_IMG_URL"
 curl -o "$TAILS_IMG_SIG" "${TAILS_IMG_URL}.sig"
-gpg --keyserver "$KEYSERVER" --recv-keys "$TAILS_KEY_FPR"
+curl --silent "$TAILS_KEY_URL" | gpg --import
 gpg --verify "$TAILS_IMG_SIG" "$TAILS_IMG"
 truncate --size ">16G" "$TAILS_IMG"
 virt-install \
