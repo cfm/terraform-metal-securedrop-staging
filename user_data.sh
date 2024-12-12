@@ -86,9 +86,9 @@ virt-install \
     --disk "${TAILS_IMG},bus=usb,removable=on" \
     --graphics "spice,password=tails" \
     --import \
-    --memory 4096 \
+    --memory 8192 \
     --name tails \
     --network network=vagrant-libvirt \
     --noautoconsole \
     --os-type debian10 \
-    --vcpus 2
+    --vcpus 4
