@@ -48,8 +48,7 @@ python3 -m pip install --upgrade pip virtualenv
 sudo apt-get install -y vagrant libvirt-daemon-system qemu-kvm virt-manager
 sudo apt-get install -y ansible rsync
 apt-get remove -y vagrant-libvirt  # so that we can then...
-vagrant plugin install vagrant-libvirt \
-    --plugin-version 0.7.0  # vagrant-libvirt/vagrant-libvirt#1519
+vagrant plugin install vagrant-libvirt
 vagrant plugin install vagrant-mutate
 
 sudo rmmod kvm_intel
