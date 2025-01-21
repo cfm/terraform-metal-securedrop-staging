@@ -58,6 +58,7 @@ sudo modprobe kvm_intel
 
 echo 'export VAGRANT_DEFAULT_PROVIDER=libvirt' >> ~/.bashrc
 export VAGRANT_DEFAULT_PROVIDER=libvirt
+export VAGRANT_SERVER_URL=https://vagrantcloud.com/api/v2/vagrant  # hashicorp/vagrant#13571
 
 vagrant box add --provider virtualbox bento/ubuntu-20.04
 vagrant mutate bento/ubuntu-20.04 libvirt
