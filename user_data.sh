@@ -2,8 +2,8 @@
 set -eux -o pipefail
 
 # Configuration prerequisites:
-sudo apt-get update
-sudo apt-get install --yes \
+apt-get update
+apt-get install --yes \
     jq \
     locales-all
 
@@ -29,32 +29,31 @@ export TAILS_KEY_URL="https://tails.net/tails-signing.key"
 
 # https://docs.securedrop.org/en/stable/development/setup_development.html#ubuntu-or-debian-gnu-linux
 # https://docs.docker.com/engine/install/debian/
-sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
 
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+apt-get update
+apt-get install -y docker-ce docker-ce-cli containerd.io
 
 # https://docs.securedrop.org/en/stable/development/setup_development.html
-sudo apt-get install -y build-essential libssl-dev libffi-dev python3-dev dpkg-dev git linux-headers-$(uname -r)
+apt-get install -y build-essential libssl-dev libffi-dev python3-dev dpkg-dev git linux-headers-$(uname -r)
 
-sudo apt-get install -y python3-pip
-python3 -m pip install --upgrade pip virtualenv
+apt-get install -y python3-pip python3-virtualenv
 
 # https://docs.securedrop.org/en/stable/development/virtual_environments.html#debian-stable-setup
-sudo apt-get install -y vagrant libvirt-daemon-system qemu-kvm virt-manager
-sudo apt-get install -y ansible rsync
+apt-get install -y vagrant libvirt-daemon-system qemu-kvm virt-manager
+apt-get install -y ansible rsync
 apt-get remove -y vagrant-libvirt  # so that we can then...
 vagrant plugin install vagrant-libvirt
 vagrant plugin install vagrant-mutate
 
-sudo rmmod kvm_intel
-sudo rmmod kvm
-sudo modprobe kvm
-sudo modprobe kvm_intel
+rmmod kvm_intel
+rmmod kvm
+modprobe kvm
+modprobe kvm_intel
 
 echo 'export VAGRANT_DEFAULT_PROVIDER=libvirt' >> ~/.bashrc
 export VAGRANT_DEFAULT_PROVIDER=libvirt
@@ -90,5 +89,5 @@ virt-install \
     --name tails \
     --network network=vagrant-libvirt \
     --noautoconsole \
-    --os-type debian10 \
+    --osinfo debian11 \
     --vcpus 4
