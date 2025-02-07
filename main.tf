@@ -18,6 +18,8 @@ variable "plan" {
 
 variable "project" {}
 
+variable "ref" {}
+
 provider "metal" {
   auth_token = var.auth_token
 }
@@ -33,8 +35,7 @@ resource "metal_device" "sd-staging" {
   operating_system = "debian_12"
   billing_cycle    = "hourly"
   project_id       = data.metal_project.project.id
-  user_data        = file("${path.module}/user_data.sh")
-
+  user_data        = templatefile("${path.module}/user_data.sh.tftpl", { ref = var.ref })
 }
 
 output "ip_address" {

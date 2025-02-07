@@ -34,6 +34,8 @@ can start a session like so:
 $ terraform init
 [...]
 $ terraform apply
+var.ref
+  Enter a value: 2.11.1
 [...]
 metal_device.sd-staging: Still creating... [2m0s elapsed]
 metal_device.sd-staging: Still creating... [2m10s elapsed]

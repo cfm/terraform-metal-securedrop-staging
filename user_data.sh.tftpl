@@ -9,15 +9,15 @@ apt-get install --yes \
 
 # General parameters:
 export HOME=/root
-export WORKDIR="${HOME}/securedrop"
+export WORKDIR="$${HOME}/securedrop"
 
 # Tails parameters:
 export TAILS_TAGS_ENDPOINT="https://gitlab.tails.boum.org/api/v4/projects/tails%2Ftails/repository/tags"
 export TAILS_LATEST_TAG=$(curl $TAILS_TAGS_ENDPOINT | jq -r ".[0].name")
 
 export TAILS_IMG=/tails.img
-export TAILS_IMG_SIG="${TAILS_IMG}.sig"
-export TAILS_IMG_URL="https://mirrors.edge.kernel.org/tails/stable/tails-amd64-${TAILS_LATEST_TAG}/tails-amd64-${TAILS_LATEST_TAG}.img"
+export TAILS_IMG_SIG="$${TAILS_IMG}.sig"
+export TAILS_IMG_URL="https://mirrors.edge.kernel.org/tails/stable/tails-amd64-$${TAILS_LATEST_TAG}/tails-amd64-$${TAILS_LATEST_TAG}.img"
 export TAILS_KEY_URL="https://tails.net/tails-signing.key"
 
 # --- SECUREDROP PREREQUISITES ---
@@ -64,6 +64,7 @@ vagrant mutate bento/ubuntu-20.04 libvirt
 
 # -- SECUREDROP WORKSPACE ---
 git clone https://github.com/freedomofpress/securedrop.git "$WORKDIR"
+cd "$WORKDIR" && git checkout ${ref}
 
 apt-get install -y enchant-2
 apt-get install -y rustc
@@ -76,13 +77,13 @@ cd "$WORKDIR" && make staging
 
 # --- TAILS ---
 curl -o "$TAILS_IMG" "$TAILS_IMG_URL"
-curl -o "$TAILS_IMG_SIG" "${TAILS_IMG_URL}.sig"
+curl -o "$TAILS_IMG_SIG" "$${TAILS_IMG_URL}.sig"
 curl --silent "$TAILS_KEY_URL" | gpg --import
 gpg --verify "$TAILS_IMG_SIG" "$TAILS_IMG"
 truncate --size ">16G" "$TAILS_IMG"
 virt-install \
     --boot hd \
-    --disk "${TAILS_IMG},bus=usb,removable=on" \
+    --disk "$${TAILS_IMG},bus=usb,removable=on" \
     --graphics "spice,password=tails" \
     --import \
     --memory 8192 \
