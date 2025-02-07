@@ -69,7 +69,20 @@ cd "$WORKDIR" && git checkout ${ref}
 apt-get install -y enchant-2
 apt-get install -y rustc
 
+export UBUNTU_VERSION=focal
+PKG_SRC_PATH="$${WORKDIR}/build/$${UBUNTU_VERSION}"
+PKG_DST_PATH="$${WORKDIR}/build/dists/$${UBUNTU_VERSION}/main/binary-amd64"
 cd "$WORKDIR" && make build-debs-notest && make build-debs-ossec-notest
+mkdir -p "$PKG_DST_PATH"
+apt-ftparchive packages "$PKG_SRC_PATH" > "$${PKG_DST_PATH}/Packages"
+
+export UBUNTU_VERSION=noble
+cd "$WORKDIR" && make build-debs-notest && make build-debs-ossec-notest
+PKG_SRC_PATH="$${WORKDIR}/build/$${UBUNTU_VERSION}"
+PKG_DST_PATH="$${WORKDIR}/build/dists/$${UBUNTU_VERSION}/main/binary-amd64"
+cd "$WORKDIR" && make build-debs-notest && make build-debs-ossec-notest
+mkdir -p "$PKG_DST_PATH"
+apt-ftparchive packages "$PKG_SRC_PATH" > "$${PKG_DST_PATH}/Packages"
 
 # Under the hood, the "libvirt-staging-focal" Molecule scenario will create
 # the "libvirt-vagrant" network to which we'll attach our Tails domain.
@@ -92,3 +105,5 @@ virt-install \
     --noautoconsole \
     --osinfo debian11 \
     --vcpus 4
+
+cd "$${WORKDIR}/build" && python3 -m http.server &
