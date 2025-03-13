@@ -103,7 +103,8 @@ amnesia@amnesia:~$ chmod 600 .ssh/id_rsa
 setup`, even if you don't actually require your `securedrop` clone to persist
 across reboots of the Tails domain (for example, during one-off testing).
 Without persistence configured, the `setup` action will bog down the Tails RAM
-disk (with the recommended 2 GB of RAM), and the domain is likely to lock up.
+disk (with the recommended 2 GB of RAM), and the domain is likely to lock
+up.[^1]
 
 For `securedrop-admin sdconfig`, you'll need to be ready with the following
 values:
@@ -162,3 +163,7 @@ Then you can redo:
 [c3.small.x86]: https://metal.equinix.com/developers/docs/servers/server-specs/#c3smallx86
 [t1.small.x86]: https://metal.equinix.com/developers/docs/servers/server-specs/#t1smallx86
 [vagrant-keypair]: https://github.com/hashicorp/vagrant/tree/main/keys
+
+[^1]:
+    You can also overwrite `/var/lib/libvirt/images/tails.img` with a disk
+    image read from a real Tails drive with `dd`.
